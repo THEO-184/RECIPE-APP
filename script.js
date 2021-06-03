@@ -143,7 +143,7 @@ function addMealFav(mealData) {
 
 	favMeal.addEventListener("click", (e) => {
 		showMealInfo(mealData);
-	}); 
+	});
 
 	favContainer.appendChild(favMeal);
 }
@@ -177,8 +177,19 @@ function showMealInfo(mealData) {
 	mealInfoEl.innerHTML = "";
 	// update thye meal info
 
-    // get ingredients and measures
-    
+	// get ingredients and measures
+
+	const ingredients = [];
+	for (let i = 1; i <= 20; i++) {
+		if (mealData["strIngredient" + i]) {
+			ingredients.push(
+				`${mealData["strIngredient" + i]} - ${mealData["strMeasure" + i]}`
+			);
+		} else {
+			break;
+		}
+	}
+
 	const mealEl = document.createElement("div");
 
 	mealEl.innerHTML = `
@@ -191,6 +202,18 @@ function showMealInfo(mealData) {
 					<p>
 						${mealData.strInstructions}
 					</p>
+					<h3>Ingredients</h3>
+					
+					<ul>
+					${ingredients
+						.map(
+							(ing) => `
+					
+					<li>${ing}</li>`
+						)
+						.join("")}
+					
+					</ul>
 					
 					
     `;
